@@ -31,3 +31,9 @@ class User(Base):
     back_populates="owner",
     cascade="all, delete-orphan",
     )
+
+    experiences = relationship(
+    "Experience",
+    back_populates="owner",
+    cascade="all, delete-orphan",
+    )
