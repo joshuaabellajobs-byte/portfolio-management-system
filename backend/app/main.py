@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from sqlalchemy import text
 from app.database import Base, engine
 from app.api.auth import router as auth_router
+from app.api.project import router as projects_router
 
 import app.models  
 
@@ -13,7 +14,7 @@ app = FastAPI(
 )
 
 app.include_router(auth_router)
-
+app.include_router(projects_router)
 @app.get("/")
 def root():
     return {
