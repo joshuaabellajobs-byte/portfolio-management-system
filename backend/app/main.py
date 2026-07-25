@@ -6,7 +6,6 @@ from app.api.project import router as projects_router
 
 import app.models  
 
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Portfolio Management System API",
