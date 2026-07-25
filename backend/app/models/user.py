@@ -37,3 +37,15 @@ class User(Base):
     back_populates="owner",
     cascade="all, delete-orphan",
     )
+
+    educations = relationship(
+    "Education",
+    back_populates="owner",
+    cascade="all, delete-orphan",
+    )
+
+    certificates = relationship(
+    "Certificate",
+    back_populates="owner",
+    cascade="all, delete-orphan",
+)
