@@ -48,4 +48,11 @@ class User(Base):
     "Certificate",
     back_populates="owner",
     cascade="all, delete-orphan",
-)
+    )
+
+    profile = relationship(
+    "Profile",
+    back_populates="owner",
+    uselist=False,
+    cascade="all, delete-orphan",
+    )

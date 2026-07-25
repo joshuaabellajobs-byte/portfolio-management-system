@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from sqlalchemy import text
 from app.database import Base, engine
-
+from app.api import profile
 from app.api.auth import router as auth_router
 from app.api.project import router as projects_router
 from app.api.skill import router as skills_router
@@ -24,6 +24,7 @@ app.include_router(skills_router)
 app.include_router(experiences_router)
 app.include_router(educations_router)
 app.include_router(certificates_router)
+app.include_router(profile.router)
 
 @app.get("/")
 def root():
