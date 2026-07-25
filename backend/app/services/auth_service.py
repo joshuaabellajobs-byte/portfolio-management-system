@@ -1,9 +1,10 @@
 from sqlalchemy.orm import Session
+from fastapi.security import OAuth2PasswordRequestForm
 from fastapi import HTTPException
 
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
-from app.schemas.user_schemas import UserCreate, UserLogin, Token
+from app.schemas.user_schemas import UserCreate, Token
 from app.utils.security import (
     hash_password,
     verify_password,
@@ -38,13 +39,13 @@ class AuthService:
 
 
     @staticmethod
-    def login_user(db: Session, user: UserLogin) -> Token:
+    def login_user(db: Session, form_data: OAuth2PasswordRequestForm) -> Token:
         """
         Authenticate a user and return a JWT access token.
         """
         existing_user = UserRepository.get_by_email(
             db,
-            user.email
+            form_data.username,
         )
 
         if not existing_user:
@@ -54,7 +55,7 @@ class AuthService:
             )
 
         if not verify_password(
-            user.password,
+            form_data.password,
             existing_user.password_hash
         ):
             raise HTTPException(
