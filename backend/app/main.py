@@ -10,7 +10,7 @@ from app.api.skill import router as skills_router
 from app.api.experience import router as experiences_router
 from app.api.education import router as educations_router
 from app.api.certificate import router as certificates_router
-
+from app.api import portfolio
 
 import app.models  
 
@@ -37,6 +37,7 @@ app.include_router(experiences_router)
 app.include_router(educations_router)
 app.include_router(certificates_router)
 app.include_router(profile.router)
+app.include_router(portfolio.router)
 
 @app.get("/")
 def root():

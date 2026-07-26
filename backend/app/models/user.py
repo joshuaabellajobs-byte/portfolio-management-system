@@ -10,7 +10,12 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, index=True)
 
-    username = Column(String(50), unique=True, nullable=False)
+    username = Column(
+    String(50),
+    unique=True,
+    nullable=False,
+    index=True,
+    )
 
     email = Column(String(100), unique=True, nullable=False)
 
@@ -19,6 +24,15 @@ class User(Base):
     is_active = Column(Boolean, default=True)
 
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+    is_public = Column(
+        Boolean,
+        default=True,
+        nullable=False,
+    )
+
+
 
     projects = relationship(
     "Project",
