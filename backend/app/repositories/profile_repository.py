@@ -54,3 +54,29 @@ class ProfileRepository:
     ) -> None:
         db.delete(db_profile)
         db.commit()
+
+    @staticmethod
+    def update_profile_image(
+        db: Session,
+        db_profile: Profile,
+        image_path: str,
+    ) -> Profile:
+        db_profile.profile_image = image_path
+
+        db.commit()
+        db.refresh(db_profile)
+
+        return db_profile
+
+    @staticmethod
+    def update_resume_file(
+        db: Session,
+        db_profile: Profile,
+        resume_path: str,
+    ) -> Profile:
+        db_profile.resume_file = resume_path
+
+        db.commit()
+        db.refresh(db_profile)
+
+        return db_profile

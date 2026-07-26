@@ -1,4 +1,6 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+import os
 from sqlalchemy import text
 from app.database import Base, engine
 from app.api import profile
@@ -16,6 +18,16 @@ import app.models
 app = FastAPI(
     title="Portfolio Management System API",
     version="1.0.0"
+)
+
+
+os.makedirs("uploads/profiles", exist_ok=True)
+os.makedirs("uploads/resumes", exist_ok=True)
+
+app.mount(
+    "/uploads",
+    StaticFiles(directory="uploads"),
+    name="uploads",
 )
 
 app.include_router(auth_router)

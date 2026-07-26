@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, File, UploadFile
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -72,3 +72,36 @@ def delete_profile(
         db,
         current_user,
     )
+
+
+@router.post(
+    "/upload-image",
+    response_model=ProfileResponse,
+)
+def upload_profile_image(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return ProfileService.upload_profile_image(
+        db,
+        file,
+        current_user,
+    )
+
+
+@router.post(
+    "/upload-resume",
+    response_model=ProfileResponse,
+)
+def upload_resume(
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    return ProfileService.upload_resume(
+        db,
+        file,
+        current_user,
+    )
+
